@@ -1,4 +1,5 @@
 import sys
+
 class Respondent:
     def __init__(self, name, age):
         self.name = name
@@ -29,27 +30,23 @@ class SurveyGrouper:
             raise ValueError("Границы должны строго возрастать")
         self.groups = self.create_groups(boundaries)
 
-
     def create_groups(self, boundaries):
         groups = []
         previous = 0
         for boundary in boundaries:
-            groups.append(
-                AgeGroup(previous, boundary)
-            )
+            groups.append(AgeGroup(previous, boundary))
             previous = boundary + 1
-        groups.append(
-            AgeGroup(previous, None)
-        )
+        groups.append(AgeGroup(previous, None))
+
         return groups
 
-
     def find_group(self, age):
+        if not 0 <= age <= 123:
+            raise ValueError("Возраст должен быть от 0 до 123")
         for group in self.groups:
             if group.contains(age):
                 return group
         return None
-
 
     def group_respondents(self, respondents):
         result = {}
@@ -60,7 +57,6 @@ class SurveyGrouper:
             result[group].append(person)
         return result
 
-
     def sort_respondents(self, grouped):
         for group in grouped:
             grouped[group].sort(
@@ -70,7 +66,6 @@ class SurveyGrouper:
                 )
             )
         return grouped
-
 
     def format_result(self, grouped):
         result = []
@@ -102,12 +97,17 @@ def read_respondents():
             break
         if not line:
             continue
+        if "," not in line:
+            raise ValueError("Неверный формат строки")
         name, age = line.rsplit(",", 1)
+        name = name.strip()
         age = int(age.strip())
+        if not name:
+            raise ValueError("ФИО не может быть пустым")
         if not 0 <= age <= 123:
             raise ValueError("Возраст должен быть от 0 до 123")
         respondents.append(
-            Respondent(name.strip(), age)
+            Respondent(name, age)
         )
     return respondents
 
