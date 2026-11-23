@@ -52,7 +52,6 @@ class RecommendationService:
         best_id = max(scores, key=scores.get)
         return self.movies.get(best_id)
 
-
     def test_no_recommendation(self):
         result = self.service.recommend([1, 2, 3, 4])
         self.assertIsNone(result)

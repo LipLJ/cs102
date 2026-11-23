@@ -1,4 +1,5 @@
 from recommendation_service import RecommendationService
+
 MOVIES_FILE = "movies.txt"
 HISTORY_FILE = "history.txt"
 def main():
