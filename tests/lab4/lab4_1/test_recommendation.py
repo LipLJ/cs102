@@ -8,10 +8,10 @@ class TestRecommendationService(unittest.TestCase):
     def setUp(self):
         self.temp_dir = tempfile.TemporaryDirectory()
         self.movies_file = os.path.join(
-            self.temp_dir.name, "../../../src/lab4/lab4_1/movies.txt"
+            self.temp_dir.name, "movies.txt"
         )
         self.history_file = os.path.join(
-            self.temp_dir.name, "../../../src/lab4/lab4_1/history.txt"
+            self.temp_dir.name, "history.txt"
         )
         with open(self.movies_file, "w", encoding="utf-8") as file:
             file.write(
